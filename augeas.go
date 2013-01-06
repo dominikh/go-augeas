@@ -1,3 +1,7 @@
+// Package augeas provides Go bindings for Augeas, the configuration
+// editing tool.
+//
+// For more information on Augeas itself, check out http://augeas.net/
 package augeas
 
 // #cgo pkg-config: libxml-2.0
