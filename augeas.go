@@ -2,7 +2,7 @@
 // editing tool.
 //
 // For more information on Augeas itself, check out http://augeas.net/
-package augeas
+package augeas // import "honnef.co/go/augeas"
 
 // #cgo pkg-config: libxml-2.0
 // #cgo LDFLAGS: -laugeas
