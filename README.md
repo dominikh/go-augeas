@@ -6,7 +6,7 @@ the configuration editing tool.
 ## Installation
 
 ```sh
-go get -u honnef.co/go/augeas
+go get honnef.co/go/augeas
 ```
 
 ## Documentation
