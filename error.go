@@ -1,7 +1,6 @@
 package augeas
 
-// #cgo pkg-config: libxml-2.0
-// #cgo LDFLAGS: -laugeas
+// #cgo pkg-config: libxml-2.0 augeas
 // #include <augeas.h>
 import "C"
 import (
