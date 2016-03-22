@@ -7,10 +7,12 @@ import (
 	"fmt"
 )
 
-// Negative codes are specific to this binding, positive codes are
-// from Augeas
+// ErrorCode is used to differentiate between the different errors
+// returned by Augeas. Positive values are from Augeas itself, while
+// negative values are specific to these bindings.
 type ErrorCode int
 
+// The possible error codes stored in Error.Code.
 const (
 	CouldNotInitialize ErrorCode = -2
 	NoMatch                      = -1
@@ -55,6 +57,7 @@ const (
 	EBADARG
 )
 
+// Error encapsulates errors returned by Augeas.
 type Error struct {
 	Code ErrorCode
 

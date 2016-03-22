@@ -12,8 +12,11 @@ import (
 	"unsafe"
 )
 
+// Flag describes flags that influence the behaviour of Augeas when
+// passed to New.
 type Flag uint
 
+// Bits or'ed together to modify the behavior of Augeas.
 const (
 	None Flag = 1 << iota
 
@@ -47,10 +50,13 @@ const (
 	NoErrClose
 )
 
+// Augeas encapsulates an Augeas handle.
 type Augeas struct {
 	handle *C.augeas
 }
 
+// A Span describes the position of a node in the file it was parsed
+// from.
 type Span struct {
 	Filename   string
 	LabelStart uint
@@ -61,6 +67,10 @@ type Span struct {
 	SpanEnd    uint
 }
 
+// New creates a new Augeas handle, specifying the file system root, a
+// list of module directories and flags.
+//
+// Call the Close method once done with the handle.
 func New(root, loadPath string, flags Flag) (Augeas, error) {
 	cRoot := C.CString(root)
 	defer C.free(unsafe.Pointer(cRoot))
@@ -110,6 +120,8 @@ func (a Augeas) DefineVariable(name, expression string) (int, error) {
 	return int(ret), nil
 }
 
+// RemoveVariable removes a variable previously defined by
+// DefineVariable.
 func (a Augeas) RemoveVariable(name string) error {
 	_, err := a.DefineVariable(name, "")
 	return err
