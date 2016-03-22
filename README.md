@@ -43,7 +43,3 @@ func main() {
 
 An extended example that fetches all host entries from /etc/hosts can
 be found [in the playground](http://play.golang.org/p/aDjm4RWBvP).
-
-## Caveats
-
-The bindings use cgo, so cross-compiling is not possible.
