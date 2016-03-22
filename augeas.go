@@ -355,12 +355,12 @@ func (a Augeas) Match(path string) (matches []string, err error) {
 		return nil, a.error()
 	}
 
-	q := uintptr(unsafe.Pointer(cMatches))
+	q := unsafe.Pointer(cMatches)
 	for i := 0; i < num; i++ {
-		p := (**C.char)(unsafe.Pointer(q))
+		p := (**C.char)(q)
 		matches = append(matches, C.GoString(*p))
 		C.free(unsafe.Pointer(*p))
-		q += unsafe.Sizeof(q)
+		q = unsafe.Pointer(uintptr(q) + unsafe.Sizeof(uintptr(0)))
 	}
 
 	C.free(unsafe.Pointer(cMatches))
