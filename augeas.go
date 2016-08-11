@@ -380,6 +380,28 @@ func (a Augeas) Match(path string) (matches []string, err error) {
 	return
 }
 
+// Label gets the label associated with a path.
+//
+// Returns an error if there are no or too many matching nodes, or if
+// the path is not a legal path expression.
+func (a Augeas) Label(path string) (value string, err error) {
+	cPath := C.CString(path)
+	defer C.free(unsafe.Pointer(cPath))
+
+	var cValue *C.char
+	ret := C.aug_label(a.handle, cPath, &cValue)
+
+	if ret == 1 {
+		return C.GoString(cValue), nil
+	} else if ret == 0 {
+		return "", Error{NoMatch, "No matching node", "", ""}
+	} else if ret < 0 {
+		return "", a.error()
+	}
+
+	panic("Unexpected return value")
+}
+
 // Save writes all pending changes to disk.
 func (a Augeas) Save() error {
 	ret := C.aug_save(a.handle)
