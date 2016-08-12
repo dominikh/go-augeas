@@ -18,10 +18,8 @@ type Flag uint
 
 // Bits or'ed together to modify the behavior of Augeas.
 const (
-	None Flag = 1 << iota
-
 	// Keep the original file with a .augsave extension
-	SaveBackup
+	SaveBackup = 1 << iota
 
 	// Save changes into a file with extension .augnew, and do not
 	// overwrite the original file. Takes precedence over SaveBackup
@@ -48,6 +46,8 @@ const (
 	// Do not close automatically when encountering error during
 	// initialization
 	NoErrClose
+
+	None Flag = 0
 )
 
 // Augeas encapsulates an Augeas handle.
