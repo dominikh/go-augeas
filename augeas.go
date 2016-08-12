@@ -217,6 +217,21 @@ func (a Augeas) Set(path, value string) error {
 	return nil
 }
 
+// Clear the value associated with a path. Intermediate entries are
+// created if they don't exist.
+func (a Augeas) Clear(path string) error {
+	cPath := C.CString(path)
+	defer C.free(unsafe.Pointer(cPath))
+
+	ret := C.aug_set(a.handle, cPath, nil)
+
+	if ret == -1 {
+		return a.error()
+	}
+
+	return nil
+}
+
 // SetMultiple sets the value of multiple nodes in one operation. Find
 // or create a node matching sub by interpreting sub as a path
 // expression relative to each node matching base. sub may be empty,
