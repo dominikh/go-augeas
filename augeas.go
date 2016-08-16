@@ -461,6 +461,29 @@ func (a Augeas) Load() error {
 	return nil
 }
 
+// Transform adds a transform for a lens/file couple
+func (a Augeas) Transform(lens, file string, excl bool) error {
+	cLens := C.CString(lens)
+	defer C.free(unsafe.Pointer(cLens))
+
+	cFile := C.CString(file)
+	defer C.free(unsafe.Pointer(cFile))
+
+	var cExcl C.int
+	if excl {
+		cExcl = 1
+	} else {
+		cExcl = 0
+	}
+
+	ret := C.aug_transform(a.handle, cLens, cFile, cExcl)
+	if ret == -1 {
+		return a.error()
+	}
+
+	return nil
+}
+
 // Close closes the Augeas instance and frees any storage associated
 // with it. After closing, the handle is invalid and can not be
 // used for any more operations.
