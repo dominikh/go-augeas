@@ -461,6 +461,19 @@ func (a Augeas) Load() error {
 	return nil
 }
 
+// LoadFile loads a single file to the Augeas tree
+func (a Augeas) LoadFile(file string) error {
+	cFile := C.CString(file)
+	defer C.free(unsafe.Pointer(cFile))
+
+	ret := C.aug_load_file(a.handle, cFile)
+	if ret == -1 {
+		return a.error()
+	}
+
+	return nil
+}
+
 // Close closes the Augeas instance and frees any storage associated
 // with it. After closing, the handle is invalid and can not be
 // used for any more operations.
