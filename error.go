@@ -82,7 +82,7 @@ func (err Error) Error() string {
 func (a Augeas) error() error {
 	code := a.errorCode()
 	if code == NoError {
-		return nil
+		return Error{ECMDRUN, "Failed to execute command", "", ""}
 	}
 
 	return Error{code, a.errorMessage(), a.errorMinorMessage(), a.errorDetails()}
