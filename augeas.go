@@ -4,7 +4,7 @@
 // For more information on Augeas itself, check out http://augeas.net/
 package augeas // import "honnef.co/go/augeas"
 
-// #cgo pkg-config: libxml-2.0 augeas
+// #cgo pkg-config: --static libxml-2.0 augeas
 // #include <augeas.h>
 // #include <stdlib.h>
 import "C"
